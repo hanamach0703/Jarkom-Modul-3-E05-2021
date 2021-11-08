@@ -5,6 +5,8 @@ Nama Kelompok:
 2. Hana Machmudah 05111940000072
 3. Achmad Fadillah  05111940000155
 
+![image](https://user-images.githubusercontent.com/66562311/140715335-a5fc5d3c-b829-4906-ba60-9418b1f63bc0.png)
+
 ## No. 1
 ### Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
 
