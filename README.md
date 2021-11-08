@@ -19,8 +19,8 @@ Nama Kelompok:
 
 ## No. 3
 ### Luffy dan Zoro menyusun peta tersebut dengan hati-hati dan teliti. Ada beberapa kriteria yang ingin dibuat oleh Luffy dan Zoro, yaitu:
-- Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
-- Client yang melalui Switch1 mendapatkan range IP dari `[prefix IP].1.20` - `[prefix IP].1.99` dan `[prefix IP].1.150` - `[prefix IP].1.169`
+### - Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
+### - Client yang melalui Switch1 mendapatkan range IP dari `[prefix IP].1.20` - `[prefix IP].1.99` dan `[prefix IP].1.150` - `[prefix IP].1.169`
 
 
 ## Jawaban
@@ -51,8 +51,7 @@ Nama Kelompok:
 
 
 ## No. 8
-### Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi.
-Pada Loguetown, proxy harus bisa diakses dengan nama `jualbelikapal.yyy.com` dengan port yang digunakan adalah 5000
+### Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi. Pada Loguetown, proxy harus bisa diakses dengan nama `jualbelikapal.yyy.com` dengan port yang digunakan adalah 5000
 
 ## Jawaban
 
