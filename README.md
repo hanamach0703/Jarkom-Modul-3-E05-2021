@@ -11,6 +11,83 @@ Nama Kelompok:
 ### Luffy bersama Zoro berencana membuat peta tersebut dengan kriteria EniesLobby sebagai DNS Server, Jipangu sebagai DHCP Server, Water7 sebagai Proxy Server
 
 ## Jawaban
+Membuat topologi sesuai gambar yang diatas. Dengan mengubah konfigurasi FOOSHA dan node lainnya seperti di bawah ini:
+#### FOOSHA
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 192.202.1.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 192.202.2.1
+	netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+	address 192.202.3.1
+	netmask 255.255.255.0
+```
+#### Loguetown
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.1.2
+	netmask 255.255.255.0
+	gateway 192.202.1.1
+```
+#### Alabasta
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.1.3
+	netmask 255.255.255.0
+	gateway 192.202.1.1
+```
+#### EniesLoby
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.2.2
+	netmask 255.255.255.0
+	gateway 192.202.2.1
+```
+#### Water7
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.2.3
+	netmask 255.255.255.0
+	gateway 192.202.2.1
+```
+#### Jipangu
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.2.4
+	netmask 255.255.255.0
+	gateway 192.202.2.1
+```
+#### Skypie
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.3.2
+	netmask 255.255.255.0
+	gateway 192.202.3.1
+```
+#### TottoLand
+```
+auto eth0
+iface eth0 inet static
+	address 192.202.3.3
+	netmask 255.255.255.0
+	gateway 192.202.3.1
+```
 
 
 ## No. 2
