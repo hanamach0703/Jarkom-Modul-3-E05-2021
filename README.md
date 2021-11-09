@@ -88,6 +88,66 @@ iface eth0 inet static
 	netmask 255.255.255.0
 	gateway 192.202.3.1
 ```
+Melakukan koneksi ke internet untuk semua node. mengetik `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 192.202.0.0/16` pada router FOOSHA.
+Kemudian ketiikan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` pada setiap ubuntu.
+- EniesLoby sebagai DNS Server
+	Mengupdate package list pada EniesLobby
+	```
+	apt-get update
+	```
+	Menginstal bind9 pada server EniesLobby
+	```
+	apt-get install bind9
+	```
+	Kemudian restart
+	```
+	service bind9 restart
+	```
+	Untuk mengecek bind9 berjalan, menggunakan perintah
+	```
+	service bind9 status
+	```
+	![image](https://user-images.githubusercontent.com/66562311/140881936-25b45340-5941-4196-8303-5e8bcc9dbc30.png)
+
+
+- Jipangu sebagai DHCP Server
+	Mengupdate package list pada Jipangu
+	```
+	apt-get update
+	```
+	Menginstal bind9 pada server Jipangu
+	```
+	apt-get install isc-dhcp-server
+	```
+	Kemudian restart
+	```
+	service isc-dhcp-server restart
+	```
+	Untuk mengecek isc-dhcp-server berjalan, menggunakan perintah
+	```
+	service isc-dhcp-server status
+	```
+	![image](https://user-images.githubusercontent.com/66562311/140882027-91a8ed19-d49e-4413-86c5-61a8984da4bd.png)
+
+
+- Water7 sebagai Proxy Server
+	Mengupdate package list pada Water7
+	```
+	apt-get update
+	```
+	Menginstal bind9 pada server Water7
+	```
+	apt-get install squid
+	```
+	Kemudian restart
+	```
+	service squid restart
+	```
+	Untuk mengecek squid berjalan, menggunakan perintah
+	```
+	service squid status
+	```
+	![image](https://user-images.githubusercontent.com/66562311/140882112-ce6a7c72-f73b-48ca-9f12-a4fb5c671c89.png)
 
 
 ## No. 2
