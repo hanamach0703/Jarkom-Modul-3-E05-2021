@@ -1,0 +1,12 @@
+apt-get update
+apt-get install apache2 -y
+apt-get install php -y
+apt-get install libapache2-mod-php7.0 -y
+apt-get install tree -y
+apt-get install wget -y
+apt-get install unzip -y
+service apache2 restart
+apache2 -v
+php -v
+
+wget https://raw.githubusercontent.com/FeinardSlim/Praktikum-Modul-2-Jarkom/main/super.franky.zip

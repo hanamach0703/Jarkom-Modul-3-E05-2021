@@ -1,0 +1,6 @@
+apt-get update
+apt-get install bind9 -y
+
+@	IN	NS	franky.E05.com.
+@	IN	A	192.202.3.69
+super	IN	CNAME	franky.E05.com.

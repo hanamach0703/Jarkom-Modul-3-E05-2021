@@ -1,0 +1,32 @@
+apt-get update
+apt-get install rsyslog -y
+apt-get install isc-dhcp-server -y
+dhcpd --version
+
+subnet 192.202.2.0 netmask 255.255.255.0 {
+    range 192.202.2.3 192.202.2.5;
+    option routers 192.202.2.1;
+    option broadcast-address 192.202.1.255;
+    option domain-name-servers 192.168.122.1;
+    default-lease-time 720;
+    max-lease-time 7200;
+}
+
+subnet 192.202.1.0 netmask 255.255.255.0 {
+    range 192.202.1.20 192.202.1.99;
+    range 192.202.1.150 192.202.1.169;
+    option routers 192.202.1.1;
+    option broadcast-address 192.202.1.255;
+    option domain-name-servers 192.202.2.3;
+    default-lease-time 360;
+    max-lease-time 7200;
+}
+
+subnet 192.202.3.0 netmask 255.255.255.0 {
+    range 192.202.3.30 192.202.3.50;
+    option routers 192.202.3.1;
+    option broadcast-address 192.202.1.255;
+    option domain-name-servers 192.202.2.3;
+    default-lease-time 720;
+    max-lease-time 7200;
+}

@@ -1,0 +1,72 @@
+apt-get update
+apt-get install squid -y
+
+//autentikasi
+
+apt-get install apache2-utils -y
+htpasswd  -cm /etc/squid/passwd luffybelikapalE05 //luffy_E05 
+htpasswd  -m /etc/squid/passwd zorobelikapalE05 //zoro_E05
+
+vim /etc/squid/squid.conf
+	auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+	auth_param basic children 5
+	auth_param basic realm Proxy
+	auth_param basic credentialsttl 2 hours
+	auth_param basic casesensitive on
+	acl USERS proxy_auth REQUIRED
+	http_access allow USERS
+
+//batas waktu & redirect
+
+vim /etc/squid/acl.conf 
+	acl AVAILABLE_WORKING1 time MTWH 07:00-11:00
+	acl AVAILABLE_WORKING2 time TWHF 17:00-23:59
+	acl AVAILABLE_WORKING3 time WHFS 00:00-03:00
+	#redirect
+	acl THISDOM	google.com 
+
+vim /etc/squid/squid.conf
+	include /etc/squid/acl.conf
+
+	#time
+
+	http_access allow AVAILABLE_WORKING1
+	http_access allow AVAILABLE_WORKING2
+	http_access allow AVAILABLE_WORKING3
+
+	#redirect
+
+	http_access deny THISDOM
+	deny_info http://super.franky.E05.com THISDOM
+
+	#acl for zoro and luffy
+
+	acl luffy proxy_auth luffybelikapalE05
+	acl zoro proxy_auth zorobelikapalE05
+
+	if luffy
+	        include /etc/squid/luffy-bandwidth.conf
+	        acl luffyblock urlpath_regex -i "/etc/squid/luffy-blocked.conf"
+        	http_access deny luffyblock
+	        http_access allow luffy
+	endif
+
+	if zoro
+	        acl zoroblock urlpath_regex -i "/etc/squid/zoro-blocked.conf"
+        	http_access deny zoroblock	
+		http_access allow zoro
+	endif
+
+vim /etc/squid/luffy-blocked.conf
+
+/.99689(\?.*)?$
+/.jpg234(\?.*)?$
+/.cursed(\?.*)?$
+/.woi(\?.*)?$
+/.listingbro(\?.*)?$
+
+
+vim /etc/squid/zoro-blocked.conf
+
+/.png(\?.*)?$
+/.jpg(\?.*)?$

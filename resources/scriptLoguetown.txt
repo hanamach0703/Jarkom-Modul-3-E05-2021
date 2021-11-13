@@ -1,0 +1,5 @@
+unset http_proxy
+apt-get update
+apt install lynx -y
+export http_proxy="http://jualbelikapal.E05.com:5000"
+env | grep -i proxy
