@@ -279,39 +279,93 @@ Melakukan restart pada Skypie dengan stop kemudian start kembali node Skypie. ke
 ### Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi. Pada Loguetown, proxy harus bisa diakses dengan nama `jualbelikapal.yyy.com` dengan port yang digunakan adalah 5000
 
 ## Jawaban
-Melakukan backup file konfigurasi default yang disediakan Squid.
-```
-mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
-```
-Membuat konfigurasi Squid baru Pada file `/etc/squid/squid.conf`
+- Pada EniesLobby
 
-Kemudian, pada file config yang baru, masukkan script :
-```
-http_port 5000
-visible_hostname Water7
-```
-Restart squid dengan cara mengetikkan perintah:
-```
-service squid restart
-```
-Pada Loguetown, lakukan konfigurasi proxy
-```
-export http_proxy="http://ip-proxy-server:port"
-```
+	Melakukan edit konfigurasi domain pada `/etc/bind/named.conf.local`
 
-![image](https://user-images.githubusercontent.com/66562311/141645370-dbbaf5fa-9532-46de-8062-ba0fc5b767a6.png)
+	![image](https://user-images.githubusercontent.com/66562311/141646773-7725d509-6f47-46ba-b47c-8f64797a2be4.png)
+
+	Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi jarkom2021.com
+	```
+	cp /etc/bind/db.local /etc/bind/jarkom/jarkom2021.com
+	```
+
+	Kemudian buka file jarkom2021.com dan edit seperti gambar berikut dengan IP EniesLobby masing-masing kelompok:
+	```
+	vim /etc/bind/jarkom/jarkom2021.com
+	```
+
+	![image](https://user-images.githubusercontent.com/66562311/141646851-d6a39411-8470-44e4-b3ee-a928f37908c3.png)
+
+	Restart bind9 dengan perintah
+	```
+	service bind9 restart
+	```
+- Pada Water7
+
+	Melakukan backup file konfigurasi default yang disediakan Squid.
+	```
+	mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
+	```
+	Membuat konfigurasi Squid baru Pada file `/etc/squid/squid.conf`
+
+	Kemudian, pada file config yang baru, masukkan script :
+
+	![image](https://user-images.githubusercontent.com/66562311/141646871-13f0a710-a2a2-437b-af8e-05eb8daa58ed.png)
+
+	Restart squid dengan cara mengetikkan perintah:
+	```
+	service squid restart
+	```
+- Pada Loguetown
+	Melakukan konfigurasi proxy
+	```
+	export http_proxy="http://ip-proxy-server:port"
+	```
+	
+	![image](https://user-images.githubusercontent.com/66562311/141646941-70133b1e-2c6f-437a-ae73-d69b4237395c.png)
+
+	![image](https://user-images.githubusercontent.com/66562311/141646932-959ebc77-4e9a-44a3-816f-ed5cb7db2bdb.png)
 
 
 ## No. 9
 ### Agar transaksi jual beli lebih aman dan pengguna website ada dua orang, proxy dipasang autentikasi user proxy dengan enkripsi MD5 dengan dua username, yaitu `luffybelikapalyyy` dengan password `luffy_yyy` dan `zorobelikapalyyy` dengan password `zoro_yyy`
 
 ## Jawaban
+- pada Water7
+	Command -c digunakan untuk membuat file baru dan untuk MD5 sendiri sudah merupakan default
+	
+	![image](https://user-images.githubusercontent.com/66562311/141646984-8cc29bff-9a1f-41c8-9909-4b9bed99f758.png)
+
+	![image](https://user-images.githubusercontent.com/66562311/141647078-d6cea1ad-ae20-43a6-89f3-a9166a916c75.png)
+	
+	Memasukkan innput password zoro_d07. Edit file /etc/squid/squid.conf menjadi seperti berikut:
+
+	![image](https://user-images.githubusercontent.com/66562311/141647089-f71769c1-6931-4444-93d8-e94a825550f3.png)
+	
+	![image](https://user-images.githubusercontent.com/66562311/141647167-31c0171e-25e1-4c1d-8340-a9218ee38c9c.png)
+
+	![image](https://user-images.githubusercontent.com/66562311/141647171-59ad385f-6f2d-4ebc-9897-14731b8fc259.png)
 
 
 ## No. 10
 ### Transaksi jual beli tidak dilakukan setiap hari, oleh karena itu akses internet dibatasi hanya dapat diakses setiap hari `Senin-Kamis pukul 07.00-11.00` dan setiap hari `Selasa-Jum’at pukul 17.00-03.00` keesokan harinya (sampai Sabtu pukul 03.00)
 
 ## Jawaban
+- Pada Water7
+	Menjalankan `vim /etc/squid/acl.conf` untuk memodifikasi file tersebut untuk ditambahkan
+	
+	![image](https://user-images.githubusercontent.com/66562311/141647219-fadc8d0a-9fac-491b-8498-756aa38c9111.png)
+	
+	Setelah itu edit file `/etc/squid/squid.conf`
+	
+	![image](https://user-images.githubusercontent.com/66562311/141647238-2859343b-15c9-4c9c-9c59-596e3de673cb.png)
+
+Melakukan testing pabila waktu saat mengakses sebuah website tidak sesuai dengan jam pada file acl.conf maka akan terjadi error dan access akan di-deny. Apabila waktu sesuai dengan jam maka halaman akan terbuka sesuai dengan website yang ingin dituju.
+
+	![image](https://user-images.githubusercontent.com/66562311/141647261-f63a858a-7547-49df-8ebd-98ee21a698f1.png)
+
+	![image](https://user-images.githubusercontent.com/66562311/141647275-c1c7688f-5eee-4054-a61f-cd79eb0a3f03.png)
 
 
 ## No. 11
