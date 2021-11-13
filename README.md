@@ -115,10 +115,16 @@ Kemudian ketiikan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` pad
 	```
 	apt-get update
 	```
-	Menginstal bind9 pada server Jipangu
+	Menginstal dhcp pada server Jipangu
 	```
 	apt-get install isc-dhcp-server
 	```
+	Mengedit file konfigurasi `isc-dhcp-server` pada `/etc/default/isc-dhcp-server` ubah `INTERFACES="eth0"`
+	
+	Mengedit file konfigurasi pada `/etc/dhcp/dhcpd.conf`
+	
+	![image](https://user-images.githubusercontent.com/66562311/141645322-c7b9857b-533e-4cae-8a8e-cd98f528c264.png)
+
 	Kemudian restart
 	```
 	service isc-dhcp-server restart
@@ -135,7 +141,7 @@ Kemudian ketiikan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` pad
 	```
 	apt-get update
 	```
-	Menginstal bind9 pada server Water7
+	Menginstal squid pada server Water7
 	```
 	apt-get install squid
 	```
@@ -154,6 +160,24 @@ Kemudian ketiikan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` pad
 ### Foosha sebagai DHCP Relay
 
 ## Jawaban
+Mengupdate package list pada FOOSHA
+```
+apt-get update
+```
+Menginstal DHCP relay pada server Jipangu
+```
+apt-get install isc-dhcp-relay
+```
+Mengedit file konfigurasi `isc-dhcp-server` pada `/etc/default/isc-dhcp-server` ubah `server=""``INTERFACES="eth1 eth2 eth3"`
+
+Mengedit file konfigurasi pada `/etc/dhcp/dhcpd.conf`
+
+![image](https://user-images.githubusercontent.com/66562311/141644003-aa05410e-acb9-4e29-bd58-1f0e3a05a354.png)
+
+Kemudian restart
+```
+service isc-dhcp-server relay
+```
 
 
 ## No. 3
@@ -161,38 +185,121 @@ Kemudian ketiikan command `echo nameserver 192.168.122.1 > /etc/resolv.conf` pad
 ### - Semua client yang ada HARUS menggunakan konfigurasi IP dari DHCP Server.
 ### - Client yang melalui Switch1 mendapatkan range IP dari `[prefix IP].1.20` - `[prefix IP].1.99` dan `[prefix IP].1.150` - `[prefix IP].1.169`
 
-
 ## Jawaban
+Mengedit file konfigurasi pada `/etc/dhcp/dhcpd.conf` pada Jipangu
+
+![image](https://user-images.githubusercontent.com/66562311/141644311-a73d0cfb-1e88-4d6a-96da-63c142b8dab7.png)
+
+cek pada node Loguetwon dan Alabasta mendapatkan ip antara `192.202.1.20` - `192.202.1.99` dan `192.202.1.150` - `192.202.1.169`
+
+![image](https://user-images.githubusercontent.com/66562311/141644418-812f9409-f5cb-4f94-ac33-369f835afb45.png)
+
+![image](https://user-images.githubusercontent.com/66562311/141644507-4196ee6d-7f85-4f39-b0ad-3dc87f0ea4ee.png)
+
 
 
 ## No. 4
 ### Client yang melalui Switch3 mendapatkan range IP dari `[prefix IP].3.30` - `[prefix IP].3.50`
 
 ## Jawaban
+Mengedit file konfigurasi pada `/etc/dhcp/dhcpd.conf` pada Jipangu
+
+![image](https://user-images.githubusercontent.com/66562311/141644311-a73d0cfb-1e88-4d6a-96da-63c142b8dab7.png)
+
+cek pada node Loguetwon mendapatkan ip antara `192.202.1.20` - `192.202.1.99` dan `192.202.1.150` - `192.202.1.169`
+
+![image](https://user-images.githubusercontent.com/66562311/141644536-f0547b84-92e0-45e0-8c44-3f2ffcbfd896.png)
+
+![image](https://user-images.githubusercontent.com/66562311/141644541-5d71d1b3-7d9a-45e6-8133-23a572020d34.png)
 
 
 ## No. 5
 ### Client mendapatkan DNS dari EniesLobby dan client dapat terhubung dengan internet melalui DNS tersebut.
 
 ## Jawaban
+Mengedit domain name server pada konfigurasi file `/etc/dhcp/dhcpd.conf` pada Jipangu
+
+![image](https://user-images.githubusercontent.com/66562311/141644311-a73d0cfb-1e88-4d6a-96da-63c142b8dab7.png)
 
 
 ## No. 6
 ### Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 6 menit sedangkan pada client yang melalui Switch3 selama 12 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 120 menit.
 
 ## Jawaban
+Mengedit `default-lease-time` dan `max-lease-time` pada konfigurasi file `/etc/dhcp/dhcpd.conf` pada Jipangu sehingga septi ini:
+
+![image](https://user-images.githubusercontent.com/66562311/141644311-a73d0cfb-1e88-4d6a-96da-63c142b8dab7.png)
+
+Mengecek pada setiap node di Switch1 dan Switch2
+- Switch1
+	
+	Alabasta
+
+	![image](https://user-images.githubusercontent.com/66562311/141644816-64e526ee-de7a-433b-a278-e89337290b88.png)
+
+	Loguetown
+
+	![image](https://user-images.githubusercontent.com/66562311/141644804-4c07d3f8-956d-4d09-8add-33527dc87b44.png)
+
+- Switch2
+
+	Skypie
+
+	![image](https://user-images.githubusercontent.com/66562311/141644823-61d43aa3-d7d3-4a21-92c3-bf2912e46089.png)
+
+	TottoLand
+
+	![image](https://user-images.githubusercontent.com/66562311/141644831-3a935f7f-0204-4207-8d5b-6ebb9100ebed.png)
 
 
 ## No. 7
 ### Luffy dan Zoro berencana menjadikan Skypie sebagai server untuk jual beli kapal yang dimilikinya dengan alamat IP yang tetap dengan IP `[prefix IP].3.69`
 
 ## Jawaban
+Mendapatkan `hwaddress_milik_Skypie`
+
+![image](https://user-images.githubusercontent.com/66562311/141644891-8ff9f1b8-6fd3-4f5d-a683-69c4a0071512.png)
+
+Buka dan edit file 
+```
+/etc/dhcp/dhcpd.conf
+```
+![image](https://user-images.githubusercontent.com/66562311/141644930-a7307e4b-2ef4-48d5-911d-b211ed737988.png)
+
+Mengubah konfigurasi pada node Skypie
+
+![image](https://user-images.githubusercontent.com/66562311/141644944-0475d5d8-15d5-4bf9-809d-a62a02097913.png)
+
+Melakukan restart pada Skypie dengan stop kemudian start kembali node Skypie. kemudian cek ip Skypie.
+
+![image](https://user-images.githubusercontent.com/66562311/141644983-d9d1823f-50ba-4c27-95a8-08d9004000a8.png)
 
 
 ## No. 8
 ### Loguetown digunakan sebagai client Proxy agar transaksi jual beli dapat terjamin keamanannya, juga untuk mencegah kebocoran data transaksi. Pada Loguetown, proxy harus bisa diakses dengan nama `jualbelikapal.yyy.com` dengan port yang digunakan adalah 5000
 
 ## Jawaban
+Melakukan backup file konfigurasi default yang disediakan Squid.
+```
+mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
+```
+Membuat konfigurasi Squid baru Pada file `/etc/squid/squid.conf`
+
+Kemudian, pada file config yang baru, masukkan script :
+```
+http_port 5000
+visible_hostname Water7
+```
+Restart squid dengan cara mengetikkan perintah:
+```
+service squid restart
+```
+Pada Loguetown, lakukan konfigurasi proxy
+```
+export http_proxy="http://ip-proxy-server:port"
+```
+
+![image](https://user-images.githubusercontent.com/66562311/141645370-dbbaf5fa-9532-46de-8062-ba0fc5b767a6.png)
 
 
 ## No. 9
